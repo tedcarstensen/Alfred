@@ -1,0 +1,38 @@
+on alfred_script(q)
+do shell script "sleep 10"
+  tell application "iTunes"
+	if player state is paused then
+		set isPlaying to true
+	else
+		set isPlaying to false
+	end if
+end tell
+
+if (isPlaying) then
+do shell script "sleep 290"
+
+tell application "iTunes"
+	if player state is paused then
+
+tell application id "com.Growl.GrowlHelperApp"
+     set the allNotificationsList to ¬
+          {"Consider Unpausing"}
+    
+     set the enabledNotificationsList to ¬
+          {"Consider Unpausing"}
+    
+     register as application ¬
+          "Consider Unpausing" all notifications allNotificationsList ¬
+          default notifications enabledNotificationsList ¬
+          icon of application "iTunes"
+    
+     notify with name ¬
+          "Consider Unpausing" title ¬
+          "Consider Unpausing" description ¬
+          "Don't you love your music?" application name "Consider Unpausing" sticky yes
+
+end tell
+end if
+end tell
+end if
+end alfred_script
